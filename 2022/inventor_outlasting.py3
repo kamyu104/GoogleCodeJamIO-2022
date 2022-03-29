@@ -16,21 +16,19 @@ def mex(lookup):
         result += 1
     return result
 
+def norm(x, parity):
+    return x+int(x%2 != parity)
+
 def inventor_outlasting():
     @lru_cache(None)
     def memoization(parity, l, r, u, d):
         lookup = set()
-        for x in range(l+1, r):
-            if x%2 != parity:
-                continue
+        for x in range(norm(l+1, parity), r, 2):
             # 0 <= i < len(L) and  0 <= j < len(L[0]) and u+1 <= y < d
             # => 0 <= y+x < 2*len(L) and  0 <= y-x < 2*len(L[0]) and u+1 <= y < d
             # => max(-x, x, u+1) <= y < min(2*len(L)-x, 2*len(L[0])+x, d)
-            for y in range(max(-x, x, u+1), min(2*len(L)-x, 2*len(L[0])+x, d)):
-                if y%2 != parity:
-                    continue
-                i, j = (y+x)//2, (y-x)//2
-                if L[i][j] != 'X':
+            for y in range(norm(max(-x, x, u+1), parity),  min(2*len(L)-x, 2*len(L[0])+x, d), 2):
+                if L[(y+x)//2][(y-x)//2] != 'X':
                     continue
                 lookup.add(memoization(parity, l, x, u, y)^
                            memoization(parity, l, x, y, d)^
