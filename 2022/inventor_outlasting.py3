@@ -11,10 +11,10 @@ from functools import lru_cache
 from collections import Counter
 
 def round_up(x, parity):
-    return x+((x%2)^parity)
+    return x+(parity^(x%2))
 
 def round_down(x, parity):
-    return x-((x%2)^parity)
+    return x-(parity^(x%2))
 
 def mex(lookup):
     result = 0
@@ -52,7 +52,7 @@ def inventor_outlasting():
         memoization(round_up(0-(C-1), parity), round_down((R-1)-0, parity),
                     round_up(0+0, parity), round_down((R-1)+(C-1), parity))
     grundy = list(map(mex, cnt))
-    return cnt[0][grundy[1]]+cnt[1][grundy[0]]
+    return cnt[0][0^grundy[1]]+cnt[1][0^grundy[0]]
 
 for case in range(int(input())):
     print('Case #%d: %s' % (case+1, inventor_outlasting()))
