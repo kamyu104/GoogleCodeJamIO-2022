@@ -7,8 +7,8 @@
 # Space: O(R^2 * C^2)
 #
 
-from collections import Counter
 from functools import lru_cache
+from collections import Counter
 
 def round_up(x, parity):
     return x+((x%2)^parity)
