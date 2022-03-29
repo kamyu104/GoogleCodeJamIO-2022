@@ -24,7 +24,7 @@ def inventor_outlasting():
             if x%2 != parity:
                 continue
             for y in range(u+1, d):
-                if (y+x)%2:
+                if y%2 != parity:
                     continue
                 i, j = (y+x)//2, (y-x)//2
                 if not (0 <= i < len(L) and 0 <= j < len(L[0]) and L[i][j] == 'X'):
