@@ -1,0 +1,57 @@
+# Copyright (c) 2022 kamyu. All rights reserved.
+#
+# Google Code Jam to I/O for Women 2022 - Problem D. Inventor Outlasting
+# https://codingcompetitions.withgoogle.com/codejamio/round/00000000009d9870/0000000000a33fb0
+#
+# Time:  O(R^3 * C^3)
+# Space: O(R^2 * C^2)
+#
+
+from collections import Counter
+
+def mex(lookup):
+    result = 0
+    while result in lookup:
+        result += 1
+    return result
+
+def dfs(L, parity, l, r, u, d, grundy):
+    if (parity, l, r, u, d) not in grundy:
+        lookup = set()
+        for x in range(l+1, r):
+            if x%2 != parity:
+                continue
+            for y in range(u+1, d):
+                if (y+x)%2:
+                    continue
+                i, j = (y+x)//2, (y-x)//2
+                if not (0 <= i < len(L) and 0 <= j < len(L[0]) and L[i][j] == 'X'):
+                    continue
+                lookup.add(dfs(L, parity, l, x, u, y, grundy)^
+                           dfs(L, parity, l, x, y, d, grundy)^
+                           dfs(L, parity, x, r, u, y, grundy)^
+                           dfs(L, parity, x, r, y, d, grundy))
+        grundy[(parity, l, r, u, d)] = mex(lookup)
+    return grundy[(parity, l, r, u, d)]
+
+def inventor_outlasting():
+    R, C = map(int, input().strip().split())
+    L = [input().strip() for _ in range(R)]
+    l, r, u, d = 0-(C-1)-1, (R-1)-0+1, 0+0-1, (R-1)+(C-1)+1
+    grundy = {}
+    cnt = [Counter(), Counter()]
+    for i in range(R):
+        for j in range(C):
+            if L[i][j] != 'X':
+                continue
+            x, y, parity = i-j, i+j, (i+j)%2
+            g = (dfs(L, parity, l, x, u, y, grundy)^
+                 dfs(L, parity, l, x, y, d, grundy)^
+                 dfs(L, parity, x, r, u, y, grundy)^
+                 dfs(L, parity, x, r, y, d, grundy))
+            cnt[parity][g] += 1
+    grundy = list(map(mex, cnt))
+    return cnt[0][grundy[1]]+cnt[1][grundy[0]]
+
+for case in range(int(input())):
+    print('Case #%d: %s' % (case+1, inventor_outlasting()))
