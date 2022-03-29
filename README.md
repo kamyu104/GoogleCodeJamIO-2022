@@ -6,7 +6,7 @@
 
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
-|A| [Speed Typing](https://codingcompetitions.withgoogle.com/kickstart/round/00000000008cb33e/00000000009e7021)| [Python3](./Round%20A/speed_typing.py3)| _O(\|P\|)_ | _O(1)_ | Easy | | String |
-|B| [Challenge Nine](https://codingcompetitions.withgoogle.com/kickstart/round/00000000008cb33e/00000000009e7997)| [Python3](./Round%20A/challenge_nine.py3) | _O(logN)_ | _O(logN)_ | Easy | | Math, Greedy |
-|C| [Palindrome Free Strings](https://codingcompetitions.withgoogle.com/kickstart/round/00000000008cb33e/00000000009e762e)| [Python3](./Round%20A/palindrome_free_strings.py3) [Python3](./Round%20A/palindrome_free_strings2.py3) | _O(N)_ | _O(1)_ | Medium | | Backtracking, DP |
-|D| [Interesting Integers](https://codingcompetitions.withgoogle.com/kickstart/round/00000000008cb33e/00000000009e73ea)| [Python3](./Round%20A/interesting_integers.py3) [Python3](./Round%20A/interesting_integers2.py3) | precompute: _O(2835 * log(MAX_B)^2)_<br>runtime: _O(9 * (logB)^2)_ | _O(2835 * log(MAX_B)^2)_ | Hard | | Counting, Memoization |
+|A| [Inversions Organize](https://codingcompetitions.withgoogle.com/codejamio/round/00000000009d9870/0000000000a33e95)| [Python3](./2022/inversions_organize.py3)| _O(N^2)_ | _O(1)_ | Easy | | Math |
+|B| [Ingredient Optimization](https://codingcompetitions.withgoogle.com/codejamio/round/00000000009d9870/0000000000a341ec)| [Python3](./2022/ingredient_optimization.py3) | _O(N + DlogD)_ | _O(D)_ | Medium | | Greedy, Heap |
+|C| [Interesting Outing](https://codingcompetitions.withgoogle.com/codejamio/round/00000000009d9870/0000000000a33bc7)| [Python3](./2022/interesting_outing.py3) | _O(N)_ | _O(N)_ | Medium | | Graph, BFS |
+|D| [Inventor Outlasting](https://codingcompetitions.withgoogle.com/codejamio/round/00000000009d9870/0000000000a33fb0)| [Python3](./2022/inventor_outlasting.py3) | _O(R^3 * C^3)_ | _O(R^2 * C^2)_ | Hard | | Sprague-Grundy Theorem, Memoization |
