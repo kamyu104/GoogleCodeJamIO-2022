@@ -23,6 +23,8 @@ def mex(lookup):
     return result
 
 def inventor_outlasting():
+    depth = [0]
+    cnt = [Counter(), Counter()]
     @lru_cache(None)
     def memoization(l, r, u, d):
         depth[0] += 1
@@ -46,8 +48,6 @@ def inventor_outlasting():
 
     R, C = map(int, input().strip().split())
     L = [input().strip() for _ in range(R)]
-    depth = [0]
-    cnt = [Counter(), Counter()]
     for parity in range(2):
         memoization(round_up(0-(C-1), parity), round_down((R-1)-0, parity),
                     round_up(0+0, parity), round_down((R-1)+(C-1), parity))
