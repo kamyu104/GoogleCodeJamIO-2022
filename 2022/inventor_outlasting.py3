@@ -15,7 +15,7 @@ def mex(lookup):
         result += 1
     return result
 
-def dfs(L, parity, l, r, u, d, grundy):
+def memoization(L, parity, l, r, u, d, grundy):
     if (parity, l, r, u, d) not in grundy:
         lookup = set()
         for x in range(l+1, r):
@@ -27,10 +27,10 @@ def dfs(L, parity, l, r, u, d, grundy):
                 i, j = (y+x)//2, (y-x)//2
                 if not (0 <= i < len(L) and 0 <= j < len(L[0]) and L[i][j] == 'X'):
                     continue
-                lookup.add(dfs(L, parity, l, x, u, y, grundy)^
-                           dfs(L, parity, l, x, y, d, grundy)^
-                           dfs(L, parity, x, r, u, y, grundy)^
-                           dfs(L, parity, x, r, y, d, grundy))
+                lookup.add(memoization(L, parity, l, x, u, y, grundy)^
+                           memoization(L, parity, l, x, y, d, grundy)^
+                           memoization(L, parity, x, r, u, y, grundy)^
+                           memoization(L, parity, x, r, y, d, grundy))
         grundy[(parity, l, r, u, d)] = mex(lookup)
     return grundy[(parity, l, r, u, d)]
 
@@ -45,10 +45,10 @@ def inventor_outlasting():
             if L[i][j] != 'X':
                 continue
             x, y, parity = i-j, i+j, (i+j)%2
-            g = (dfs(L, parity, l, x, u, y, grundy)^
-                 dfs(L, parity, l, x, y, d, grundy)^
-                 dfs(L, parity, x, r, u, y, grundy)^
-                 dfs(L, parity, x, r, y, d, grundy))
+            g = (memoization(L, parity, l, x, u, y, grundy)^
+                 memoization(L, parity, l, x, y, d, grundy)^
+                 memoization(L, parity, x, r, u, y, grundy)^
+                 memoization(L, parity, x, r, y, d, grundy))
             cnt[parity][g] += 1
     grundy = list(map(mex, cnt))
     return cnt[0][grundy[1]]+cnt[1][grundy[0]]
