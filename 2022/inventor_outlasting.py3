@@ -30,7 +30,7 @@ def inventor_outlasting():
             # 0 <= i < len(L) and  0 <= j < len(L[0]) and u <= y <= d
             # => 0 <= y+x <= 2*len(L)-1 and  0 <= y-x <= 2*len(L[0])-1 and u <= y <= d
             # => max(-x, x, u) <= y <= min(2*len(L)-x-1, 2*len(L[0])+x-1, d)
-            for y in range(max(-x, x, u),  min(2*len(L)-x-1, 2*len(L[0])+x-1, d)+1, 2):
+            for y in range(max(-x, x, u), min(2*len(L)-x-1, 2*len(L[0])+x-1, d)+1, 2):
                 if L[(y+x)//2][(y-x)//2] != 'X':
                     continue
                 lookup.add(memoization(l, x-2, u, y-2)^
