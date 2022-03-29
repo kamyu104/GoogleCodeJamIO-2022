@@ -38,7 +38,6 @@ def inventor_outlasting():
     R, C = map(int, input().strip().split())
     L = [input().strip() for _ in range(R)]
     l, r, u, d = 0-(C-1)-1, (R-1)-0+1, 0+0-1, (R-1)+(C-1)+1
-    grundy = {}
     cnt = [Counter(), Counter()]
     for i in range(R):
         for j in range(C):
