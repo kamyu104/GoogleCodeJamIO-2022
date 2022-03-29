@@ -1,6 +1,6 @@
 # [GoogleCodeJamIO 2022](https://codingcompetitions.withgoogle.com/codejamio/round/00000000009d9870) ![Language](https://img.shields.io/badge/language-Python3-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-4%20%2F%204-ff69b4.svg) ![Visitors](https://visitor-badge.laobi.icu/badge?page_id=kamyu104.googlecodejamio.2022)
 
-* Python3 solutions of Google Kick Start 2022. Solution begins with `*` means it will get TLE in the largest data set.
+* Python3 solutions of Google Code Jam to I/O for Women 2022. Solution begins with `*` means it will get TLE in the largest data set.
 * Total computation amount > `10^8` is not friendly for Python3 to solve in 5 ~ 15 seconds.
 * A problem was marked as `Very Hard` means that it was an unsolved one during the contest and may not be that difficult.
 
