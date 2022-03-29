@@ -10,17 +10,17 @@
 from collections import Counter
 from functools import lru_cache
 
-def mex(lookup):
-    result = 0
-    while result in lookup:
-        result += 1
-    return result
-
 def round_up(x, parity):
     return x+((x%2)^parity)
 
 def round_down(x, parity):
     return x-((x%2)^parity)
+
+def mex(lookup):
+    result = 0
+    while result in lookup:
+        result += 1
+    return result
 
 def inventor_outlasting():
     @lru_cache(None)
