@@ -8,6 +8,7 @@
 #
 
 from collections import Counter
+from functools import lru_cache
 
 def mex(lookup):
     result = 0
@@ -15,8 +16,9 @@ def mex(lookup):
         result += 1
     return result
 
-def memoization(L, parity, l, r, u, d, grundy):
-    if (parity, l, r, u, d) not in grundy:
+def inventor_outlasting():
+    @lru_cache(None)
+    def memoization(parity, l, r, u, d):
         lookup = set()
         for x in range(l+1, r):
             if x%2 != parity:
@@ -27,14 +29,12 @@ def memoization(L, parity, l, r, u, d, grundy):
                 i, j = (y+x)//2, (y-x)//2
                 if not (0 <= i < len(L) and 0 <= j < len(L[0]) and L[i][j] == 'X'):
                     continue
-                lookup.add(memoization(L, parity, l, x, u, y, grundy)^
-                           memoization(L, parity, l, x, y, d, grundy)^
-                           memoization(L, parity, x, r, u, y, grundy)^
-                           memoization(L, parity, x, r, y, d, grundy))
-        grundy[(parity, l, r, u, d)] = mex(lookup)
-    return grundy[(parity, l, r, u, d)]
+                lookup.add(memoization(parity, l, x, u, y)^
+                           memoization(parity, l, x, y, d)^
+                           memoization(parity, x, r, u, y)^
+                           memoization(parity, x, r, y, d))
+        return mex(lookup)
 
-def inventor_outlasting():
     R, C = map(int, input().strip().split())
     L = [input().strip() for _ in range(R)]
     l, r, u, d = 0-(C-1)-1, (R-1)-0+1, 0+0-1, (R-1)+(C-1)+1
@@ -45,10 +45,10 @@ def inventor_outlasting():
             if L[i][j] != 'X':
                 continue
             x, y, parity = i-j, i+j, (i+j)%2
-            g = (memoization(L, parity, l, x, u, y, grundy)^
-                 memoization(L, parity, l, x, y, d, grundy)^
-                 memoization(L, parity, x, r, u, y, grundy)^
-                 memoization(L, parity, x, r, y, d, grundy))
+            g = (memoization(parity, l, x, u, y)^
+                 memoization(parity, l, x, y, d)^
+                 memoization(parity, x, r, u, y)^
+                 memoization(parity, x, r, y, d))
             cnt[parity][g] += 1
     grundy = list(map(mex, cnt))
     return cnt[0][grundy[1]]+cnt[1][grundy[0]]
