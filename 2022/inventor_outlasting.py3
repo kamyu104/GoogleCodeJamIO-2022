@@ -16,40 +16,44 @@ def mex(lookup):
         result += 1
     return result
 
-def norm(x, parity):
-    return x+int(x%2 != parity)
+def round_up(x, parity):
+    return x+((x%2)^parity)
+
+def round_down(x, parity):
+    return x-((x%2)^parity)
 
 def inventor_outlasting():
     @lru_cache(None)
-    def memoization(parity, l, r, u, d):
+    def memoization(l, r, u, d):
         lookup = set()
-        for x in range(norm(l+1, parity), r, 2):
-            # 0 <= i < len(L) and  0 <= j < len(L[0]) and u+1 <= y < d
-            # => 0 <= y+x < 2*len(L) and  0 <= y-x < 2*len(L[0]) and u+1 <= y < d
-            # => max(-x, x, u+1) <= y < min(2*len(L)-x, 2*len(L[0])+x, d)
-            for y in range(norm(max(-x, x, u+1), parity),  min(2*len(L)-x, 2*len(L[0])+x, d), 2):
+        for x in range(l, r+1, 2):
+            # 0 <= i < len(L) and  0 <= j < len(L[0]) and u <= y <= d
+            # => 0 <= y+x <= 2*len(L)-1 and  0 <= y-x <= 2*len(L[0])-1 and u <= y <= d
+            # => max(-x, x, u) <= y <= min(2*len(L)-x-1, 2*len(L[0])+x-1, d)
+            for y in range(max(-x, x, u),  min(2*len(L)-x-1, 2*len(L[0])+x-1, d)+1, 2):
                 if L[(y+x)//2][(y-x)//2] != 'X':
                     continue
-                lookup.add(memoization(parity, l, x, u, y)^
-                           memoization(parity, l, x, y, d)^
-                           memoization(parity, x, r, u, y)^
-                           memoization(parity, x, r, y, d))
+                lookup.add(memoization(l, x-2, u, y-2)^
+                           memoization(l, x-2, y+2, d)^
+                           memoization(x+2, r, u, y-2)^
+                           memoization(x+2, r, y+2, d))
         return mex(lookup)
 
     R, C = map(int, input().strip().split())
     L = [input().strip() for _ in range(R)]
-    l, r, u, d = 0-(C-1)-1, (R-1)-0+1, 0+0-1, (R-1)+(C-1)+1
     cnt = [Counter(), Counter()]
-    for i in range(R):
-        for j in range(C):
-            if L[i][j] != 'X':
-                continue
-            x, y, parity = i-j, i+j, (i+j)%2
-            g = (memoization(parity, l, x, u, y)^
-                 memoization(parity, l, x, y, d)^
-                 memoization(parity, x, r, u, y)^
-                 memoization(parity, x, r, y, d))
-            cnt[parity][g] += 1
+    for parity in range(2):
+        l, r, u, d = round_up(0-(C-1), parity), round_down((R-1)-0, parity), round_up(0+0, parity), round_down((R-1)+(C-1), parity)
+        for i in range(R):
+            for j in range((i%2)^parity, C, 2):
+                if L[i][j] != 'X':
+                    continue                
+                x, y = i-j, i+j
+                g = (memoization(l, x-2, u, y-2)^
+                     memoization(l, x-2, y+2, d)^
+                     memoization(x+2, r, u, y-2)^
+                     memoization(x+2, r, y+2, d))
+                cnt[parity][g] += 1
     grundy = list(map(mex, cnt))
     return cnt[0][grundy[1]]+cnt[1][grundy[0]]
 
