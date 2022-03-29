@@ -43,11 +43,12 @@ def inventor_outlasting():
     L = [input().strip() for _ in range(R)]
     cnt = [Counter(), Counter()]
     for parity in range(2):
-        l, r, u, d = round_up(0-(C-1), parity), round_down((R-1)-0, parity), round_up(0+0, parity), round_down((R-1)+(C-1), parity)
+        l, r = round_up(0-(C-1), parity), round_down((R-1)-0, parity)
+        u, d = round_up(0+0, parity), round_down((R-1)+(C-1), parity)
         for i in range(R):
             for j in range((i%2)^parity, C, 2):
                 if L[i][j] != 'X':
-                    continue                
+                    continue
                 x, y = i-j, i+j
                 g = (memoization(l, x-2, u, y-2)^
                      memoization(l, x-2, y+2, d)^
