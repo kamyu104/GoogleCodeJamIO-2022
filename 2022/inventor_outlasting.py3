@@ -30,8 +30,8 @@ def inventor_outlasting():
         depth[0] += 1
         lookup = set()
         for x in range(l+2, r, 2):
-            # 0 <= i < len(L) and  0 <= j < len(L[0]) and u+2 <= y < d
-            # => 0 <= y+x < 2*len(L) and  0 <= y-x < 2*len(L[0]) and u+2 <= y < d
+            # 0 <= i < len(L) and 0 <= j < len(L[0]) and u+2 <= y < d
+            # => 0 <= y+x < 2*len(L) and 0 <= y-x < 2*len(L[0]) and u+2 <= y < d
             # => max(-x, x, u+2) <= y < min(2*len(L)-x, 2*len(L[0])+x, d)
             for y in range(max(-x, x, u+2), min(2*len(L)-x, 2*len(L[0])+x, d), 2):
                 if L[(y+x)//2][(y-x)//2] != 'X':
