@@ -4,6 +4,11 @@
 * Total computation amount > `10^8` is not friendly for Python3 to solve in 5 ~ 15 seconds.
 * A problem was marked as `Very Hard` means that it was an unsolved one during the contest and may not be that difficult.
 
+## Rounds
+
+* [2022](https://github.com/kamyu104/GoogleKickStart-2022#2022)
+
+## 2022
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
 |A| [Inversions Organize](https://codingcompetitions.withgoogle.com/codejamio/round/00000000009d9870/0000000000a33e95)| [Python3](./2022/inversions_organize.py3)| _O(N^2)_ | _O(1)_ | Easy | | Math |
