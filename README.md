@@ -7,6 +7,7 @@
 ## Rounds
 
 * [2022](https://github.com/kamyu104/GoogleCodeJamIO-2022#2022)
+* [Code Jam Farewell Rounds](https://github.com/kamyu104/GoogleCodeJam-Farewell-Rounds)
 
 ## 2022
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
